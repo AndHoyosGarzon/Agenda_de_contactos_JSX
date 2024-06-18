@@ -1,0 +1,13 @@
+.contentForm {
+  width: 800px;
+  height: 400px;
+  margin: 8% auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 25px;
+  background-color: rgb(247, 249, 249);
+  text-align: center;
+  border-radius: 25px;
+  border: 1px solid rgb(209, 204, 204);
+}

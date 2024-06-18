@@ -1,0 +1,35 @@
+.contentCard {
+  margin: 5px auto;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 25px 0;
+  box-sizing: border-box;
+  border: 0.8px solid silver;
+  border-radius: 10px;
+  background-color: rgb(247, 249, 249);
+}
+
+.content_image {
+  width: 180px;
+  height: 180px;
+  border: 1px solid silver;
+  border-radius: 50% 50%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50% 50%;
+  object-fit: cover;
+}
+
+.info {
+  width: 500px;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
