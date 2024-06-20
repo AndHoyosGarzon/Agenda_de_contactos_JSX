@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AgendaCreate from "./components/Agenda/AgendaCreate";
 import Agenda from "./components/Agenda/Diary";
 import FormAdd from "./components/Form/FormAdd";
 import FormEdit from "./components/Form/FormEdit";
+import Diary from "./components/Agenda/Diary";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AgendaCreate />} />
+        <Route path="/" element={<Diary />} />
         <Route path="/agenda_contactos" element={<Agenda />} />
         <Route path="/form-add" element={<FormAdd />} />
         <Route

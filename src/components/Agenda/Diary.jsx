@@ -5,23 +5,68 @@ import { FaTrashAlt } from "react-icons/fa";
 import { TiPencil } from "react-icons/ti";
 
 function Diary() {
+  const [agenda, setAgenda] = useState([]);
   const [user, setUser] = useState([]);
+  const navigate = useNavigate();
 
-  //peticion get que crea cards de users
-  useEffect(() => {
-    const url = "https://playground.4geeks.com/contact/agendas/agendaAndresH";
-    fetch(url)
+  //crea agenda
+  function createAgenda() {
+    const url = `https://playground.4geeks.com/contact/agendas/agendaAndresH`;
+    const metods = {
+      method: "POST",
+      header: { "Content-type": "application/json" },
+    };
+    fetch(url, metods)
       .then((res) => {
-        if (!res.ok) console.log(res.statusText);
+        if (res.status === 400) console.log("La agenda ya esta creada");
         return res.json();
       })
       .then((data) => {
-        setUser(data.contacts);
-      });
-    console.log("peticions");
+        console.log("se creo agenda", data);
+        setAgenda(data.contacts);
+      })
+      .catch((error) => error);
+    navigate("/form-add");
+  }
+
+  //elimina agenda
+  function deleteAgenda() {
+    const url = `https://playground.4geeks.com/contact/agendas/agendaAndresH`;
+    const metods = {
+      method: "DELETE",
+      header: { "Content-type": "application/json" },
+    };
+    fetch(url, metods)
+      .then((res) => {
+        if (!res.ok) console.log("No se pudo eliminar la agenda");
+        return res.json();
+      })
+      .then((data) => {
+        console.log("se elimino la agenda", data);
+        setAgenda(null);
+        setUser(null);
+      })
+      .catch((error) => error);
+  }
+
+  //peticion get que crea cards de users
+  useEffect(() => {
+    async function getContacts() {
+      const url = "https://playground.4geeks.com/contact/agendas/agendaAndresH";
+      await fetch(url)
+        .then((res) => {
+          if (!res.ok) console.log(res.statusText);
+          return res.json();
+        })
+        .then((data) => {
+          setUser(data.contacts);
+        })
+        .catch((error) => error);
+    }
+
+    getContacts();
   }, [user]);
 
-  const navigate = useNavigate();
   //navegacion para formulario de agregar contacto
   function handleFormAdd() {
     navigate("/form-add");
@@ -51,9 +96,22 @@ function Diary() {
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between">
-        <div className="text-start my-5"></div>
+        <div className="text-start my-5">
+          {agenda && agenda.length >= 0 ? (
+            <button onClick={deleteAgenda} className="btn btn-danger fw-bolder">
+              Delete Agenda
+            </button>
+          ) : (
+            <button
+              onClick={createAgenda}
+              className="btn btn-primary fw-bolder"
+            >
+              Create Agenda
+            </button>
+          )}
+        </div>
         <div className="text-end my-5">
-          <button onClick={handleFormAdd} className="btn btn-light fw-bolder">
+          <button onClick={handleFormAdd} className="btn btn-success fw-bolder">
             Add New Contact
           </button>
         </div>
@@ -99,3 +157,12 @@ function Diary() {
 }
 
 export default Diary;
+/***
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
